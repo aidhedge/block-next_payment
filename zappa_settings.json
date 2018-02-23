@@ -1,0 +1,18 @@
+{
+    "dev": {
+        "app_function": "app.app",
+        "aws_region": "eu-west-1",
+        "profile_name": "default",
+        "project_name": "block-next-paym",
+        "runtime": "python3.6",
+        "s3_bucket": "block-next-payment-dev"
+    },
+    "production": {
+        "app_function": "app.app",
+        "aws_region": "eu-west-1",
+        "profile_name": "default",
+        "project_name": "block-next-paym",
+        "runtime": "python3.6",
+        "s3_bucket": "block-next-payment-production"
+    }
+}
