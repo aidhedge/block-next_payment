@@ -7,9 +7,9 @@ from logger import Logger
 LOG = Logger()
 ah_request = AhRequest()
 
-CURRENCY_API_KEY = os.getenv('CURRENCY_API_KEY', None)
-if not CURRENCY_API_KEY:
-    raise NoAPIKeyPresent("Can't find 'CURRENCY_API_KEY' in the env variables", status_code=500) 
+# CURRENCY_API_KEY = os.getenv('CURRENCY_API_KEY', None)
+# if not CURRENCY_API_KEY:
+#     raise NoAPIKeyPresent("Can't find 'CURRENCY_API_KEY' in the env variables", status_code=500) 
 
 
 def get_risk_by_date(_list,pair,date):
@@ -35,6 +35,7 @@ def today(d=None):
         return today.strftime('%Y-%m-%d')
 
 def queryCurrencyApi(pair, date):
+    CURRENCY_API_KEY = 'fd0c184ec8e0c57d3a22623274e87f89'
     url = "http://www.apilayer.net/api/historical?access_key={}&source={}&currencies={}&date={}".format(CURRENCY_API_KEY, pair[:3], pair[3:],date)
     #LOG.console(url)
     res = ah_request.get(url=url)
