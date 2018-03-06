@@ -79,7 +79,7 @@ def next(payload):
                 data['payment'].append(obj)
 
                 obj = dict()
-                obj.update(bar='Worst outcome')
+                obj.update(bar='Minimum')
                 abs_change_since_start = pct_change(budget, pct_diff_since_start)
                 temp_amount = budget + abs_change_since_start
                 pct_risk = get_risk_by_date(_list=currency_risks, pair=pair, date=p['date'])
@@ -88,7 +88,7 @@ def next(payload):
                 data['payment'].append(obj)
 
                 obj = dict()
-                obj.update(bar='Best outcome')
+                obj.update(bar='Maximum')
                 abs_change_since_start = pct_change(budget, pct_diff_since_start)
                 temp_amount = budget + abs_change_since_start
                 pct_risk = get_risk_by_date(_list=currency_risks, pair=pair, date=p['date'])
