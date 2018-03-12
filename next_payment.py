@@ -42,6 +42,8 @@ def queryCurrencyApi(pair, date):
     res = res.json()
     return float(res['quotes'][pair])
     
+def roundof(num):
+    return round(num / 1000) * 1000
 
 def next(payload):
     project_data = payload['project_data']
@@ -49,6 +51,8 @@ def next(payload):
     project_start = project_data['project_start']
     todays_date = today()
     payments = []
+    if project_start > today():
+        return []
     for t in project_data["transactions"]:
         currency_from = t["currency_from"]
         currency_to = t["currency_to"]
@@ -68,14 +72,14 @@ def next(payload):
                 obj = dict()
 
                 obj.update(bar='Budget')
-                obj.update(amount=budget)
+                obj.update(amount=roundof(budget))
                 data['payment'].append(obj)
 
                 obj = dict()
                 obj.update(bar='Projected outcome')
                 abs_change_since_start = pct_change(budget, pct_diff_since_start)
                 #obj.update(diff=abs_change_since_start)
-                obj.update(amount=budget + abs_change_since_start)
+                obj.update(amount=roundof(budget + abs_change_since_start))
                 data['payment'].append(obj)
 
                 obj = dict()
@@ -84,7 +88,7 @@ def next(payload):
                 temp_amount = budget + abs_change_since_start
                 pct_risk = get_risk_by_date(_list=currency_risks, pair=pair, date=p['date'])
                 abs_change_with_risk = pct_change(temp_amount, pct_risk)
-                obj.update(amount=temp_amount - abs_change_with_risk)
+                obj.update(amount=roundof(temp_amount - abs_change_with_risk))
                 data['payment'].append(obj)
 
                 obj = dict()
@@ -93,7 +97,7 @@ def next(payload):
                 temp_amount = budget + abs_change_since_start
                 pct_risk = get_risk_by_date(_list=currency_risks, pair=pair, date=p['date'])
                 abs_change_with_risk = pct_change(temp_amount, pct_risk)
-                obj.update(amount=temp_amount + abs_change_with_risk)
+                obj.update(amount=roundof(temp_amount + abs_change_with_risk))
                 data['payment'].append(obj)
                 
                 payments.append(data)
